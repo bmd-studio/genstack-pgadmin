@@ -2,7 +2,17 @@ version: '3.7'
 
 services:
   pgadmin:
-    image: ${DOCKER_IMAGE}
+    build:
+      context: ./
+      args:
+        - DOCKER_IMAGE
+        - APP_PREFIX
+        - PGADMIN_USER_DIR
+        - POSTGRES_HOST_NAME
+        - POSTGRES_PORT
+        - POSTGRES_DEFAULT_DATABASE_NAME
+        - POSTGRES_SUPER_USER_ROLE_NAME
+        - POSTGRES_SUPER_USER_SECRET
     restart: ${DOCKER_RESTART_POLICY}   
     env_file:
       - ${DOCKER_GENERATED_ENV_FILE:-./env/defaults}     
