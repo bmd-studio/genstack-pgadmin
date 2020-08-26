@@ -5,22 +5,19 @@ FROM $DOCKER_IMAGE
 USER root
 
 # create servers
-COPY ./servers.json /tmp/servers.json
-WORKDIR /tmp/
+WORKDIR /pgadmin4/
+COPY ./servers.json ./servers.json
 
 ARG APP_PREFIX
-RUN sed -i -r "s/%%APP_PREFIX%%/${APP_PREFIX}/g" servers.json
 ARG POSTGRES_HOST_NAME
-RUN sed -i -r "s/%%POSTGRES_HOST_NAME%%/${POSTGRES_HOST_NAME}/g" servers.json
 ARG POSTGRES_PORT
-RUN sed -i -r "s/%%POSTGRES_PORT%%/${POSTGRES_PORT}/g" servers.json
 ARG POSTGRES_DEFAULT_DATABASE_NAME
-RUN sed -i -r "s/%%POSTGRES_DEFAULT_DATABASE_NAME%%/${POSTGRES_DEFAULT_DATABASE_NAME}/g" servers.json
 ARG POSTGRES_SUPER_USER_ROLE_NAME
-RUN sed -i -r "s/%%POSTGRES_SUPER_USER_ROLE_NAME%%/${POSTGRES_SUPER_USER_ROLE_NAME}/g" servers.json
-
-# import servers
-RUN python /pgadmin4/setup.py --load-servers /tmp/servers.json
+RUN sed -i -r "s/%%APP_PREFIX%%/${APP_PREFIX}/g" servers.json && \
+  sed -i -r "s/%%POSTGRES_HOST_NAME%%/${POSTGRES_HOST_NAME}/g" servers.json && \
+  sed -i -r "s/%%POSTGRES_PORT%%/${POSTGRES_PORT}/g" servers.json && \
+  sed -i -r "s/%%POSTGRES_DEFAULT_DATABASE_NAME%%/${POSTGRES_DEFAULT_DATABASE_NAME}/g" servers.json && \
+  sed -i -r "s/%%POSTGRES_SUPER_USER_ROLE_NAME%%/${POSTGRES_SUPER_USER_ROLE_NAME}/g" servers.json && \
 
 # create passwords
 WORKDIR /var/lib/pgadmin/storage/
