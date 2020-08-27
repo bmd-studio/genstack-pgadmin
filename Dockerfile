@@ -17,7 +17,7 @@ RUN sed -i -r "s/%%APP_PREFIX%%/${APP_PREFIX}/g" servers.json && \
   sed -i -r "s/%%POSTGRES_HOST_NAME%%/${POSTGRES_HOST_NAME}/g" servers.json && \
   sed -i -r "s/%%POSTGRES_PORT%%/${POSTGRES_PORT}/g" servers.json && \
   sed -i -r "s/%%POSTGRES_DEFAULT_DATABASE_NAME%%/${POSTGRES_DEFAULT_DATABASE_NAME}/g" servers.json && \
-  sed -i -r "s/%%POSTGRES_SUPER_USER_ROLE_NAME%%/${POSTGRES_SUPER_USER_ROLE_NAME}/g" servers.json && \
+  sed -i -r "s/%%POSTGRES_SUPER_USER_ROLE_NAME%%/${POSTGRES_SUPER_USER_ROLE_NAME}/g" servers.json
 
 # create passwords
 WORKDIR /var/lib/pgadmin/storage/
