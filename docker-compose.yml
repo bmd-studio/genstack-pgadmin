@@ -21,8 +21,12 @@ services:
     volumes:
       - data:/var/lib/pgadmin      
     networks:
-      - backend
-      - frontend
+      backend:
+        aliases: 
+          - ${SERVICE_NAME}
+      frontend:
+        aliases: 
+          - ${SERVICE_NAME} 
     logging:
       driver: ${DOCKER_LOGGING_DRIVER}
       options:
