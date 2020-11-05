@@ -1,5 +1,5 @@
-ARG DOCKER_IMAGE
-FROM $DOCKER_IMAGE
+ARG DOCKER_BASE_IMAGE
+FROM $DOCKER_BASE_IMAGE
 
 # root user is required for the coming operations
 USER root
