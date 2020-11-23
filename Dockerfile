@@ -25,3 +25,5 @@ ARG PGADMIN_USER_DIR
 RUN mkdir -m 700 ./${PGADMIN_USER_DIR} && \
   echo "${POSTGRES_HOST_NAME}:${POSTGRES_HOST_NAME}:${POSTGRES_DEFAULT_DATABASE_NAME}:${POSTGRES_SUPER_USER_ROLE_NAME}:${POSTGRES_SUPER_USER_SECRET}" > ./${PGADMIN_USER_DIR}/pgpassfile && \ 
   chmod 600 ./${PGADMIN_USER_DIR}/pgpassfile
+
+HEALTHCHECK --interval=5s --timeout=3s CMD wget --no-verbose --tries=1 --spider http://localhost/login || exit 1
