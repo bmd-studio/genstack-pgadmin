@@ -11,6 +11,6 @@
     "dc:dev": "cross-env GS_ENV=development yarn dc -f docker-compose.development.yml"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2"
+    "cross-env": "7.0.2"
   }
 }
