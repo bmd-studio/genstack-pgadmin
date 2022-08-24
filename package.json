@@ -1,6 +1,6 @@
 {
-  "name": "@bmd-studio/genstack-container-pgadmin",
-  "private": true,
+  "name": "@bmd-studio/genstack-pgadmin",
+  "version": "4.27.0",
   "scripts": {
     "setup": "yarn install",
     "start:docker": "yarn dc:dev up",
