@@ -2,9 +2,9 @@ version: '3.7'
 
 services:
   pgadmin:
-    container_name: ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}_${GS_ENV}
-    image: ${DOCKER_IMAGE_REGISTRY:-}${APP_PREFIX}/${SERVICE_NAME}:${APP_VERSION}-${GS_ENV}
-    restart: ${DOCKER_RESTART_POLICY}   
+    container_name: ${COMPOSE_PROJECT_NAME}_${SERVICE_NAME}
+    image: ${DOCKER_IMAGE_REGISTRY:-}${APP_PREFIX}/${SERVICE_NAME}:${APP_VERSION}
+    restart: ${DOCKER_RESTART_POLICY}
     build:
       context: ./
       args:
@@ -17,28 +17,28 @@ services:
         - POSTGRES_SUPER_USER_ROLE_NAME
         - POSTGRES_SUPER_USER_SECRET
     env_file:
-      - ${DOCKER_GENERATED_ENV_FILE:-./env/defaults}     
+      - ${DOCKER_GENERATED_ENV_FILE:-./env/defaults}
     volumes:
-      - data:/var/lib/pgadmin      
+      - data:/var/lib/pgadmin
     networks:
       backend:
-        aliases: 
+        aliases:
           - ${SERVICE_NAME}
       frontend:
-        aliases: 
-          - ${SERVICE_NAME} 
+        aliases:
+          - ${SERVICE_NAME}
     logging:
       driver: ${DOCKER_LOGGING_DRIVER}
       options:
         max-file: ${DOCKER_LOGGING_MAX_FILE}
-        max-size: ${DOCKER_LOGGING_MAX_SIZE}      
+        max-size: ${DOCKER_LOGGING_MAX_SIZE}
     labels:
       - traefik.enable=${PROXY_ROUTER_ENABLE}
       - traefik.docker.network=${DOCKER_FRONTEND_NETWORK_NAME}
-      
+
       - traefik.http.routers.${APP_PREFIX}-${SERVICE_NAME}-host.rule=HostRegexp(`${SERVICE_NAME}.${APP_PREFIX}.${PROXY_ROUTER_DOMAIN}`)
       - traefik.http.routers.${APP_PREFIX}-${SERVICE_NAME}-path.rule=PathPrefix(`/${APP_PREFIX}/${SERVICE_NAME}`)
-      
+
       - traefik.http.services.${APP_PREFIX}-${SERVICE_NAME}.loadbalancer.server.port=${PGADMIN_HTTP_PORT}
 
       - traefik.http.middlewares.${APP_PREFIX}-${SERVICE_NAME}-stripprefix.stripprefix.prefixes=/${APP_PREFIX}/${SERVICE_NAME}
@@ -57,4 +57,4 @@ networks:
 volumes:
   data:
     name: ${PGADMIN_VOLUME_NAME}
-    driver: local      
+    driver: local
